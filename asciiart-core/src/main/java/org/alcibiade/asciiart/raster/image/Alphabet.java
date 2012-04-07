@@ -11,7 +11,8 @@ public class Alphabet {
 
     private static final String AVAILABLE_CHARACTERS = " "
             + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            + "0123456789" + "~!@#$%^&*()_+`-=[]{}\\|;:'<>,.?/";
+            + "0123456789"
+            + "~!@#$%^&*()_+`-=[]{}\\|;:'<>,.?/";
     private Map<BufferedImage, Character> letters;
 
     public Alphabet(Dimension2D letterSize) {
@@ -47,20 +48,20 @@ public class Alphabet {
 
     private long matchFactor(BufferedImage image1, Rectangle2D zone1,
             BufferedImage image2) {
+
         long difference = 0;
 
         for (int y = 0; y < (int) zone1.getHeight() && y < image2.getHeight(); y++) {
             for (int x = 0; x < (int) zone1.getWidth() && x < image2.getWidth(); x++) {
-                int rgb1 = image1.getRGB((int) zone1.getMinX() + x, (int) zone1.getMinY()
-                        + y);
+                int rgb1 = image1.getRGB((int) zone1.getMinX() + x, (int) zone1.getMinY() + y);
                 int rgb2 = image2.getRGB(x, y);
 
                 int distance = rgbDistance(rgb1, rgb2);
-                difference += Math.abs(distance);
+                difference += distance;
             }
         }
 
-        return difference;
+        return Math.abs(difference);
     }
 
     private int rgbDistance(int rgb1, int rgb2) {

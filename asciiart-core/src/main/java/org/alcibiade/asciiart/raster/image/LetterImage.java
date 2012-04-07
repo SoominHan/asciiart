@@ -69,7 +69,6 @@ public class LetterImage extends BufferedImage {
         } while (outerBounds.contains(characterBounds));
 
         assert fontSize > 4;
-
-        return new Font(FONT_FAMILY, FONT_STYLE, fontSize - 4);
+        return new Font(FONT_FAMILY, FONT_STYLE, (int) (fontSize * .8));
     }
 }
