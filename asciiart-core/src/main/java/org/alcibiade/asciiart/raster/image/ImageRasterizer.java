@@ -7,12 +7,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import org.alcibiade.asciiart.coord.TextBox;
 import org.alcibiade.asciiart.coord.TextBoxSize;
 import org.alcibiade.asciiart.coord.TextCoord;
+import org.alcibiade.asciiart.raster.CharacterRaster;
+import org.alcibiade.asciiart.raster.ExtensibleCharacterRaster;
 import org.alcibiade.asciiart.raster.RasterContext;
 
 public class ImageRasterizer {
@@ -52,5 +52,19 @@ public class ImageRasterizer {
                 image.getHeight(), null);
 
         return bwcopy;
+    }
+
+    public static void main(String... args) throws IOException {
+        File imageFile = new File(args[0]);
+        int columns = Integer.parseInt(args[1]);
+
+        BufferedImage image = ImageIO.read(imageFile);
+        int rows = columns * image.getHeight() / image.getWidth() / 2;
+
+        CharacterRaster raster = new ExtensibleCharacterRaster();
+        ImageRasterizer.rasterize(image, new RasterContext(raster),
+                new TextBoxSize(columns, rows));
+
+        System.out.print(raster.toString());
     }
 }
