@@ -10,30 +10,22 @@
     <name>Ascii Art Bindings for Java Commons Logging</name>
     <packaging>jar</packaging>
 
+    <description>Ascii Art Bindings allowing to use JCL log wrappers.</description>  
+
+    <url>http://sourceforge.net/projects/asciiart/</url>
+    
     <scm>
+        <url>http://sourceforge.net/p/asciiart/code</url>
         <connection>scm:hg:${basedir}</connection>
     </scm>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <developers>
+        <developer>
+            <id>Yannick Kirschhoffer &lt;alcibiade@alcibiade.org&gt;</id>
+            <name>Yannick Kirschhoffer</name>
+            <email>alcibiade@alcibiade.org</email>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
