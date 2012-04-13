@@ -57,7 +57,7 @@ public class Alphabet {
                 int rgb2 = image2.getRGB(x, y);
 
                 int distance = rgbDistance(rgb1, rgb2);
-                difference += distance;
+                difference += Math.abs(distance);
             }
         }
 

@@ -66,15 +66,19 @@ public class AsciiArtLogger extends LoggerDelegator {
     }
 
     private void logList(Level level, Collection<? extends Object> items, String title) {
-        TableModel tableModel = new TableModelCollectionAdapter(items, title);
-        TableWidget tableWidget = new TableWidget(tableModel);
-        logWidget(level, tableWidget);
+        if (isEnabled(level)) {
+            TableModel tableModel = new TableModelCollectionAdapter(items, title);
+            TableWidget tableWidget = new TableWidget(tableModel);
+            logWidget(level, tableWidget);
+        }
     }
 
     private void logMap(Level level, Map<? extends Object, ? extends Object> items, String... titles) {
-        TableModel tableModel = new TableModelMapAdapter(items, titles);
-        TableWidget tableWidget = new TableWidget(tableModel);
-        logWidget(level, tableWidget);
+        if (isEnabled(level)) {
+            TableModel tableModel = new TableModelMapAdapter(items, titles);
+            TableWidget tableWidget = new TableWidget(tableModel);
+            logWidget(level, tableWidget);
+        }
     }
 
     private void logWidget(Level level, TextWidget widget) {
@@ -87,6 +91,30 @@ public class AsciiArtLogger extends LoggerDelegator {
         for (String line : raster) {
             logLine(level, line);
         }
+    }
+
+    private boolean isEnabled(Level level) {
+        boolean enabled = false;
+
+        switch (level) {
+            case ERROR:
+                enabled = isErrorEnabled();
+                break;
+            case WARN:
+                enabled = isWarnEnabled();
+                break;
+            case INFO:
+                enabled = isInfoEnabled();
+                break;
+            case DEBUG:
+                enabled = isDebugEnabled();
+                break;
+            case TRACE:
+                enabled = isTraceEnabled();
+                break;
+        }
+
+        return enabled;
     }
 
     private void logLine(Level level, String line) {

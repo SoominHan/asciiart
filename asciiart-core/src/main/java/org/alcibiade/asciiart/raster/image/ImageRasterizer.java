@@ -5,8 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import org.alcibiade.asciiart.coord.TextBox;
 import org.alcibiade.asciiart.coord.TextBoxSize;
@@ -48,10 +52,37 @@ public class ImageRasterizer {
                 BufferedImage.TYPE_BYTE_GRAY);
 
         Graphics2D g2 = bwcopy.createGraphics();
+
         g2.drawImage(image, 0, 0, targetWidth, targetHeight, 0, 0, image.getWidth(),
                 image.getHeight(), null);
 
+        equalizeLightness(bwcopy);
+
         return bwcopy;
+    }
+
+    private static void equalizeLightness(BufferedImage image) {
+        long total = 0;
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int level = image.getRGB(x, y) & 0xff;
+                total += level;
+            }
+        }
+
+        int average = (int) (total / (width * height));
+        double ratio = average / 128.;
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int level = image.getRGB(x, y) & 0xff;
+                level = (int) (255 * Math.pow(level / 255., ratio));
+                image.setRGB(x, y, level | (level << 8) | (level << 16));
+            }
+        }
     }
 
     public static void main(String... args) throws IOException {
