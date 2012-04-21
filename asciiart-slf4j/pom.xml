@@ -48,6 +48,14 @@
             <email>alcibiade@alcibiade.org</email>
         </developer>
     </developers>
+  
+    <licenses>   
+        <license>
+            <name>LGPLv3</name>
+            <url>http://www.gnu.org/copyleft/lesser.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>

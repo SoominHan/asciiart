@@ -12,7 +12,26 @@
         <version>7</version>
     </parent>
   
+    <description>Ascii Art library for Java applications</description>
+  
+    <licenses>   
+        <license>
+            <name>LGPLv3</name>
+            <url>http://www.gnu.org/copyleft/lesser.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+  
+    <developers>
+        <developer>
+            <id>Yannick Kirschhoffer &lt;alcibiade@alcibiade.org&gt;</id>
+            <name>Yannick Kirschhoffer</name>
+            <email>alcibiade@alcibiade.org</email>
+        </developer>
+    </developers>
+
     <scm>
+        <url>http://sourceforge.net/p/asciiart/code</url>
         <connection>scm:hg:${basedir}</connection>
     </scm>
 
