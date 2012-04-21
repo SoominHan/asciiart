@@ -33,6 +33,7 @@
     <scm>
         <url>http://sourceforge.net/p/asciiart/code</url>
         <connection>scm:hg:${basedir}</connection>
+        <developerConnection>scm:hg:${basedir}</developerConnection>
     </scm>
 
     <modules>
