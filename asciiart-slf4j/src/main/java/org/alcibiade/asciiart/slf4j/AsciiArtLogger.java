@@ -65,11 +65,34 @@ public class AsciiArtLogger extends LoggerDelegator {
         logMap(Level.TRACE, items, titles);
     }
 
+    /*
+     * Widgets
+     */
+    public void error(TextWidget widget) {
+        logWidget(Level.ERROR, widget);
+    }
+
+    public void warn(TextWidget widget) {
+        logWidget(Level.WARN, widget);
+    }
+
+    public void info(TextWidget widget) {
+        logWidget(Level.INFO, widget);
+    }
+
+    public void debug(TextWidget widget) {
+        logWidget(Level.DEBUG, widget);
+    }
+
+    public void trace(TextWidget widget) {
+        logWidget(Level.TRACE, widget);
+    }
+
     private void logList(Level level, Collection<? extends Object> items, String title) {
         if (isEnabled(level)) {
             TableModel tableModel = new TableModelCollectionAdapter(items, title);
             TableWidget tableWidget = new TableWidget(tableModel);
-            logWidget(level, tableWidget);
+            doLogWidget(level, tableWidget);
         }
     }
 
@@ -77,11 +100,17 @@ public class AsciiArtLogger extends LoggerDelegator {
         if (isEnabled(level)) {
             TableModel tableModel = new TableModelMapAdapter(items, titles);
             TableWidget tableWidget = new TableWidget(tableModel);
-            logWidget(level, tableWidget);
+            doLogWidget(level, tableWidget);
+        }
+    }
+    
+    private void logWidget(Level level, TextWidget widget) {
+        if (isEnabled(level)) {
+            doLogWidget(level, widget);
         }
     }
 
-    private void logWidget(Level level, TextWidget widget) {
+    private void doLogWidget(Level level, TextWidget widget) {
         TextPanel textPanel = new TextPanel();
         textPanel.add(widget);
 
