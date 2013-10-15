@@ -47,6 +47,11 @@
             <name>Yannick Kirschhoffer</name>
             <email>alcibiade@alcibiade.org</email>
         </developer>
+        <developer>
+            <id>Cyrille Chopelet &lt;cyrille.chopelet@gmail.com&gt;</id>
+            <name>Cyrille Chopelet</name>
+            <email>cyrille.chopelet@gmail.com</email>
+        </developer>
     </developers>
         
     <licenses>   
