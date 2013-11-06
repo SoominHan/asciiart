@@ -58,11 +58,11 @@ public class TextPanel extends TextWidgetContainer {
         for (int i = 0; i < widgets.size(); i++) {
             TextWidget widget = widgets.get(i);
             TextBox box = boxes.get(i);
+            border.render(rc, box);
+
             rc.translate(box.getLowCoord());
             widget.render(rc);
             rc.translate(box.getLowCoord().invert());
-
-            border.render(rc, box);
         }
     }
 
