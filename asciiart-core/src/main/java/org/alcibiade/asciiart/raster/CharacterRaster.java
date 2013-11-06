@@ -1,6 +1,7 @@
 package org.alcibiade.asciiart.raster;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import org.alcibiade.asciiart.coord.TextBox;
@@ -50,8 +51,8 @@ public class CharacterRaster implements Raster, Iterable<String> {
     protected final char[][] allocateRaster(TextBoxSize size) {
         char[][] localBuffer = new char[size.getX()][size.getY()];
 
-        for (TextCoord coord : new TextBox(size)) {
-            localBuffer[coord.getX()][coord.getY()] = fillChar;
+        for (int x = 0; x < size.getX(); x++) {
+            Arrays.fill(localBuffer[x], fillChar);
         }
 
         return localBuffer;

@@ -32,8 +32,8 @@ public class ExtensibleCharacterRaster extends CharacterRaster {
         TextBoxSize size = getSize();
         TextBoxSize newSize = new TextBoxSize(size.maxValues(coord.add(TextCoord.ONE)));
         char[][] localBuffer = allocateRaster(newSize);
-        for (TextCoord c : new TextBox(size)) {
-            localBuffer[c.getX()][c.getY()] = buffer[c.getX()][c.getY()];
+        for (int x = 0; x < size.getX(); x++) {
+            System.arraycopy(buffer[x], 0, localBuffer[x], 0, size.getY());
         }
 
         buffer = localBuffer;
