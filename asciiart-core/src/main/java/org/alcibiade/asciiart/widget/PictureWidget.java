@@ -11,7 +11,7 @@ public class PictureWidget extends TextWidget {
     private BufferedImage image;
     private Rasterizer rasterizer;
 
-    public PictureWidget(TextBoxSize size, BufferedImage image, Rasterizer raserizer) {
+    public PictureWidget(TextBoxSize size, BufferedImage image, Rasterizer rasterizer) {
         this.size = size;
         this.image = image;
         this.rasterizer = rasterizer;

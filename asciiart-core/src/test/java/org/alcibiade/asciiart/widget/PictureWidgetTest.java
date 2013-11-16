@@ -16,7 +16,7 @@ public class PictureWidgetTest {
     @Test
     public void testPictureWidget() throws IOException {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        URL circleImageURL = classLoader.getResource("org/alcibiade/asciiart/raster/image/Sample_BlackCircle.png");
+        URL circleImageURL = classLoader.getResource("org/alcibiade/asciiart/image/samples/Sample_BlackCircle.png");
         BufferedImage circleImage = ImageIO.read(circleImageURL);
 
         TextWidget widget = new PictureWidget(new TextBoxSize(30, 10),
