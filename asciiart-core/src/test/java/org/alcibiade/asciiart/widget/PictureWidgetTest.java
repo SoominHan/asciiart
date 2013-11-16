@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import org.alcibiade.asciiart.coord.TextBoxSize;
+import org.alcibiade.asciiart.image.rasterize.DashRasterizer;
 import org.alcibiade.asciiart.raster.ExtensibleCharacterRaster;
 import org.alcibiade.asciiart.raster.Raster;
 import org.alcibiade.asciiart.raster.RasterContext;
@@ -19,7 +20,7 @@ public class PictureWidgetTest {
         BufferedImage circleImage = ImageIO.read(circleImageURL);
 
         TextWidget widget = new PictureWidget(new TextBoxSize(30, 10),
-                circleImage);
+                circleImage, new DashRasterizer());
         Raster raster = new ExtensibleCharacterRaster();
 
         widget.render(new RasterContext(raster));

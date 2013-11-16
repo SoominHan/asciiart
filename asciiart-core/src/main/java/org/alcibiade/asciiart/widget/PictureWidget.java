@@ -2,17 +2,19 @@ package org.alcibiade.asciiart.widget;
 
 import java.awt.image.BufferedImage;
 import org.alcibiade.asciiart.coord.TextBoxSize;
+import org.alcibiade.asciiart.image.rasterize.Rasterizer;
 import org.alcibiade.asciiart.raster.RasterContext;
-import org.alcibiade.asciiart.raster.image.ImageRasterizer;
 
 public class PictureWidget extends TextWidget {
 
     private TextBoxSize size;
     private BufferedImage image;
+    private Rasterizer rasterizer;
 
-    public PictureWidget(TextBoxSize size, BufferedImage image) {
+    public PictureWidget(TextBoxSize size, BufferedImage image, Rasterizer raserizer) {
         this.size = size;
         this.image = image;
+        this.rasterizer = rasterizer;
     }
 
     @Override
@@ -22,6 +24,6 @@ public class PictureWidget extends TextWidget {
 
     @Override
     public void render(RasterContext rc) {
-        ImageRasterizer.rasterize(image, rc, size);
+        rasterizer.rasterize(image, rc, size);
     }
 }
