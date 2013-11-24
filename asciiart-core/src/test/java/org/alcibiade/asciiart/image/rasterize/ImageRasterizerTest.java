@@ -27,14 +27,16 @@ public class ImageRasterizerTest {
             "org/alcibiade/asciiart/image/samples/Sample_Line.png"
         };
 
-        Rasterizer[] rasterizers = {new DashRasterizer()};
+        Rasterizer[] rasterizers = {
+            new DashRasterizer(),
+            new ShapeRasterizer()
+        };
 
         for (String image : images) {
             for (Rasterizer rasterizer : rasterizers) {
                 rasterizePicture(image, rasterizer);
             }
         }
-
     }
 
     private void rasterizePicture(String imageFileName, Rasterizer rasterizer) throws IOException {
