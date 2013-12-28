@@ -16,7 +16,7 @@ public class ShapeRasterizer extends AbstractLinearRasterizer {
     private static final int SHAPE_RESOLUTION_X = 3;
     private static final int SHAPE_RESOLUTION_Y = 3;
     private char[] shapes;
-    private double delta = 0;
+    private double[] delta= new double[SHAPE_RESOLUTION_Y];
 
     public ShapeRasterizer() {
         String resourceBundle = String.format(
@@ -84,10 +84,10 @@ public class ShapeRasterizer extends AbstractLinearRasterizer {
 
         for (int i = 0; i < lightMatrix.length; i++) {
             double initialValue = lightMatrix[i];
-            double correctedValue = initialValue + delta;
+            double correctedValue = initialValue + delta[i / SHAPE_RESOLUTION_X];
             double selectedValue = (correctedValue > 0.5) ? 1 : 0;
 
-            delta = correctedValue - selectedValue;
+            delta[i / SHAPE_RESOLUTION_X] = correctedValue - selectedValue;
 
             if (selectedValue > 0.5) {
                 offset += 1 << i;
