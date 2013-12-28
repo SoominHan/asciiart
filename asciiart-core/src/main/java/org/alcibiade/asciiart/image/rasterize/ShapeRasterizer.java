@@ -4,10 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Basic Dash rasterizer.
@@ -19,6 +16,7 @@ public class ShapeRasterizer extends AbstractLinearRasterizer {
     private static final int SHAPE_RESOLUTION_X = 3;
     private static final int SHAPE_RESOLUTION_Y = 3;
     private char[] shapes;
+    private double delta = 0;
 
     public ShapeRasterizer() {
         String resourceBundle = String.format(
@@ -85,7 +83,13 @@ public class ShapeRasterizer extends AbstractLinearRasterizer {
         int offset = 0;
 
         for (int i = 0; i < lightMatrix.length; i++) {
-            if (lightMatrix[i] > 0.5) {
+            double initialValue = lightMatrix[i];
+            double correctedValue = initialValue + delta;
+            double selectedValue = (correctedValue > 0.5) ? 1 : 0;
+
+            delta = correctedValue - selectedValue;
+
+            if (selectedValue > 0.5) {
                 offset += 1 << i;
             }
         }
