@@ -48,20 +48,42 @@ public class EdgeDetectionFilter implements ImageFilter {
 
     private double convolution(BufferedImage image, int x, int y, double[] matrix) {
         assert matrix.length == 9;
+        assert image.getWidth() > 1;
+        assert image.getHeight() > 1;
+
         double sumValues = 0;
         double sumRatios = 0;
 
+        // Delta x/y coordinates
         for (int dy = -1; dy < 2; dy++) {
             for (int dx = -1; dx < 2; dx++) {
+                // Actual image coordinates
                 int ax = x + dx;
                 int ay = y + dy;
+
+                // Adjust border collisions in mirror mode
+                if (ax < 0) {
+                    ax = 1;
+                }
+
+                if (ax >= image.getWidth()) {
+                    ax = image.getWidth() - 2;
+                }
+
+                if (ay < 0) {
+                    ay = 1;
+                }
+
+                if (ay >= image.getHeight()) {
+                    ay = image.getHeight() - 2;
+                }
+
+                // Now do the actual computing...
                 double ratio = matrix[3 * (dy + 1) + dx + 1];
 
-                if (ax >= 0 && ax < image.getWidth() && ay >= 0 && ay < image.getHeight()) {
-                    int value = image.getRGB(ax, ay) & 0xFF;
-                    sumValues += ratio * value / 255.;
-                    sumRatios += Math.abs(ratio);
-                }
+                int value = image.getRGB(ax, ay) & 0xFF;
+                sumValues += ratio * value / 255.;
+                sumRatios += Math.abs(ratio);
             }
         }
 
