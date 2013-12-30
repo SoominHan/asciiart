@@ -12,7 +12,7 @@ public class ShapesDisplay {
 
     public static void main(String... args) throws IOException {
         int sx = 3;
-        int sy = 3;
+        int sy = 4;
 
         String resourceBundle = String.format(
                 "shapes_%dx%d.properties", sx, sy);

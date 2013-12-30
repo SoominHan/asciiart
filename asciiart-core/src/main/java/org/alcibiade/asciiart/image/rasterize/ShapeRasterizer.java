@@ -14,7 +14,7 @@ import java.util.Properties;
 public class ShapeRasterizer extends AbstractLinearRasterizer {
 
     private static final int SHAPE_RESOLUTION_X = 3;
-    private static final int SHAPE_RESOLUTION_Y = 3;
+    private static final int SHAPE_RESOLUTION_Y = 4;
     private char[] shapes;
     private double[] delta= new double[SHAPE_RESOLUTION_Y];
 
@@ -58,8 +58,8 @@ public class ShapeRasterizer extends AbstractLinearRasterizer {
     protected char rasterizeSection(BufferedImage image, Rectangle sectionArea) {
         ImageSectionLightnessExtractor lightnessExtractor = getLightnessExtractor();
 
-        int subSectionW = (int) (sectionArea.getWidth() / 3);
-        int subSectionH = (int) (sectionArea.getHeight() / 3);
+        int subSectionW = (int) (sectionArea.getWidth() / SHAPE_RESOLUTION_X);
+        int subSectionH = (int) (sectionArea.getHeight() / SHAPE_RESOLUTION_Y);
         double[] lightMatrix = new double[SHAPE_RESOLUTION_X * SHAPE_RESOLUTION_Y];
 
         for (int y = 0; y < SHAPE_RESOLUTION_Y; y++) {

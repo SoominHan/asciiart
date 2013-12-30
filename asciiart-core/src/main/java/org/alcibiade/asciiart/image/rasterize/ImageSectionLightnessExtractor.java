@@ -14,8 +14,11 @@ public class ImageSectionLightnessExtractor {
         long totalLight = 0;
         long totalSamples = 0;
 
-        for (int y = (int) sectionArea.getMinY(); y < sectionArea.getMaxY(); y++) {
-            for (int x = (int) sectionArea.getMinX(); x < sectionArea.getMaxX(); x++) {
+        int maxX = Math.min((int) sectionArea.getMaxX() + 1, image.getWidth());
+        int maxY = Math.min((int) sectionArea.getMaxY() + 1, image.getHeight());
+
+        for (int y = (int) sectionArea.getMinY(); y < maxY; y++) {
+            for (int x = (int) sectionArea.getMinX(); x < maxX; x++) {
                 int rgb = image.getRGB(x, y);
                 int light = rgb & 0xFF;
                 totalLight += light;
