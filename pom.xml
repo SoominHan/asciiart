@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
   
     <description>Ascii Art library for Java applications</description>
@@ -187,7 +187,10 @@
                                     <goal>jar</goal>
                                 </goals>
                             </execution>
-                        </executions>            
+                        </executions>     
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>       
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
