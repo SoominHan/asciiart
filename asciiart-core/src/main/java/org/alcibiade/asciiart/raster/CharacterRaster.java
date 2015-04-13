@@ -21,8 +21,8 @@ public class CharacterRaster implements Raster, Iterable<String> {
     public CharacterRaster(TextBoxSize size, char fillChar) {
         assert size.getX() > 0;
         assert size.getY() > 0;
-        buffer = allocateRaster(size);
         this.fillChar = fillChar;
+        buffer = allocateRaster(size);
     }
 
     public TextBoxSize getSize() {

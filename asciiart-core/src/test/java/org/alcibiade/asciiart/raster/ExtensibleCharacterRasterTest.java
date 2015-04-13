@@ -1,8 +1,9 @@
 package org.alcibiade.asciiart.raster;
 
+import org.alcibiade.asciiart.coord.TextCoord;
 import org.alcibiade.asciiart.widget.LabelWidget;
 import org.alcibiade.asciiart.widget.TextWidget;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 public class ExtensibleCharacterRasterTest {
@@ -16,6 +17,18 @@ public class ExtensibleCharacterRasterTest {
         widget.render(rc);
         String rasterString = raster.toString();
 
-        Assert.assertTrue(rasterString.startsWith("Hello world !"));
+        Assertions.assertThat(rasterString).startsWith("Hello world !");
+    }
+
+    @Test
+    public void testIssueWithDefaultValue() {
+        Raster raster = new ExtensibleCharacterRaster(' ');
+        RasterContext rc = new RasterContext(raster);
+
+        rc.drawCharacter(new TextCoord(10, 0), 'x');
+
+        String rasterString = raster.toString();
+
+        Assertions.assertThat(rasterString).startsWith("    ");
     }
 }
