@@ -16,7 +16,8 @@
     
     <scm>
         <url>http://sourceforge.net/p/asciiart/code</url>
-        <connection>scm:hg:${basedir}</connection>
+        <connection>scm:git:${basedir}</connection>
+        <developerConnection>scm:git:${basedir}</developerConnection>
     </scm>
 
     <build>
