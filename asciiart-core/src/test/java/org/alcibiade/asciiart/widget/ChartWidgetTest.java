@@ -6,8 +6,12 @@ import org.alcibiade.asciiart.raster.Raster;
 import org.alcibiade.asciiart.raster.RasterContext;
 import org.alcibiade.asciiart.widget.model.CurveModel;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ChartWidgetTest {
+
+    private Logger logger = LoggerFactory.getLogger(ChartWidgetTest.class);
 
     @Test
     public void testChartWidget() {
@@ -23,6 +27,6 @@ public class ChartWidgetTest {
         Raster raster = new ExtensibleCharacterRaster();
 
         widget.render(new RasterContext(raster));
-        System.out.println(raster);
+        logger.info("Chart for {}:\n{}", curveModel, raster.toString());
     }
 }
