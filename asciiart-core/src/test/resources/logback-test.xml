@@ -7,10 +7,9 @@
         </encoder>
     </appender>
    
-    <logger name="org.alcibiade" level="WARN" />
-    <logger name="org.springframework" level="WARN" />
+    <logger name="org.alcibiade" level="OFF" />
 
-    <root level="INFO">
+    <root level="OFF">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
