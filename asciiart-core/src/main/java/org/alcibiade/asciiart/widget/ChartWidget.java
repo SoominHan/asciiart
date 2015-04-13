@@ -67,8 +67,26 @@ public class ChartWidget extends TextWidget {
         maxY += margin;
 
         // Proceed with actual rendering
-        CoordMapper coordMapper = new CoordMapper(size, minX, maxX, minY, maxY);
+        // Note that the coordinate mapping will swap Y coordinates
+        CoordMapper coordMapper = new CoordMapper(size, minX, maxX, maxY, minY);
 
+        // Render X axis
+        TextCoord originCoord = coordMapper.computeTextCoord(0, 0);
+
+        if (originCoord != null) {
+            for (int x = 0; x < size.getX(); x++) {
+                rc.drawCharacter(new TextCoord(x, originCoord.getY()), '-');
+            }
+            for (int y = 0; y < size.getY(); y++) {
+                rc.drawCharacter(new TextCoord(originCoord.getX(), y), '|');
+            }
+
+            rc.drawCharacter(originCoord, '+');
+            rc.drawCharacter(new TextCoord(originCoord.getX(), 0), '^');
+            rc.drawCharacter(new TextCoord(size.getX() - 1, originCoord.getY()), '>');
+        }
+
+        // Render the curve itself
         for (int gridX = 0; gridX < size.getX(); gridX++) {
             double curveX = projectGridToCurve.project(gridX);
             Double value = values.get(gridX);

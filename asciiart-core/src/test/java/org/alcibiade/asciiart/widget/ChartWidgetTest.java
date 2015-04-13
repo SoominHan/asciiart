@@ -14,19 +14,46 @@ public class ChartWidgetTest {
     private Logger logger = LoggerFactory.getLogger(ChartWidgetTest.class);
 
     @Test
-    public void testChartWidget() {
-        CurveModel curveModel = new CurveModel() {
+    public void testChartSine() {
+        renderCurve(new CurveModel() {
 
             @Override
             public Double getValue(double x) {
-                return Math.sin(x);
+                return Math.cos(x - 1);
             }
-        };
 
-        ChartWidget widget = new ChartWidget(new TextBoxSize(80, 12), curveModel, 0, 10);
-        Raster raster = new ExtensibleCharacterRaster();
+            @Override
+            public String toString() {
+                return "f(x) = cos(x-1)";
+            }
+
+        });
+
+    }
+
+    @Test
+    public void testChartWithNans() {
+        renderCurve(new CurveModel() {
+
+            @Override
+            public Double getValue(double x) {
+                return 1 / (x - 1);
+            }
+
+            @Override
+            public String toString() {
+                return "f(x) = 1 / (x-1)";
+            }
+
+        });
+    }
+
+    private void renderCurve(CurveModel curveModel) {
+        ChartWidget widget = new ChartWidget(new TextBoxSize(80, 12), curveModel, -1, 10);
+        Raster raster = new ExtensibleCharacterRaster(' ');
 
         widget.render(new RasterContext(raster));
         logger.info("Chart for {}:\n{}", curveModel, raster.toString());
     }
+
 }
