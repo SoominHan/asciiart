@@ -1,13 +1,14 @@
 package org.alcibiade.asciiart.widget;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.alcibiade.asciiart.coord.CoordMapper;
 import org.alcibiade.asciiart.coord.CoordProjection;
 import org.alcibiade.asciiart.coord.TextBoxSize;
 import org.alcibiade.asciiart.coord.TextCoord;
 import org.alcibiade.asciiart.raster.RasterContext;
 import org.alcibiade.asciiart.widget.model.CurveModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Display various charts.
@@ -34,15 +35,17 @@ public class ChartWidget extends TextWidget {
 
     @Override
     public void render(RasterContext rc) {
-        CoordProjection projectGridToCurve = new CoordProjection(0, size.getX(), minX, maxX);
+        CoordProjection projectGridXToCurve = new CoordProjection(0, size.getX(), minX, maxX);
 
         // Calculate Y values
         List<Double> values = new ArrayList<Double>();
 
         for (int gridX = 0; gridX < size.getX(); gridX++) {
-            double curveX = projectGridToCurve.project(gridX);
-            Double value = curveModel.getValue(curveX);
-            values.add(value);
+            // Compute 2 samples for every character cell
+            double curveX0 = projectGridXToCurve.project(gridX + 0.25);
+            double curveX1 = projectGridXToCurve.project(gridX + 0.75);
+            values.add(curveModel.getValue(curveX0));
+            values.add(curveModel.getValue(curveX1));
         }
 
         // Compute statistics
@@ -61,6 +64,8 @@ public class ChartWidget extends TextWidget {
             }
         }
 
+        CoordProjection projectGridYToCurve = new CoordProjection(0, size.getY(), minY, maxY);
+
         double margin = (maxY - minY) * .1;
 
         minY -= margin;
@@ -75,7 +80,7 @@ public class ChartWidget extends TextWidget {
 
         if (originCoord != null) {
             for (int x = 0; x < size.getX(); x++) {
-                rc.drawCharacter(new TextCoord(x, originCoord.getY()), '-');
+                rc.drawCharacter(new TextCoord(x, originCoord.getY()), '.');
             }
             for (int y = 0; y < size.getY(); y++) {
                 rc.drawCharacter(new TextCoord(originCoord.getX(), y), '|');
@@ -88,15 +93,47 @@ public class ChartWidget extends TextWidget {
 
         // Render the curve itself
         for (int gridX = 0; gridX < size.getX(); gridX++) {
-            double curveX = projectGridToCurve.project(gridX);
-            Double value = values.get(gridX);
+            double curveX = projectGridXToCurve.project(gridX);
+            Double value0 = values.get(2 * gridX);
+            Double value1 = values.get(2 * gridX + 1);
 
             // The curve may hold no valid value at that position.
-            if (value != null && value != Double.NaN) {
-                TextCoord coord = coordMapper.computeTextCoord(curveX, value);
+
+            Character curveChar;
+            TextCoord coord;
+
+            if (value0 == null || value0 == Double.NaN) {
+                coord = coordMapper.computeTextCoord(curveX, value1);
+
+                if (value1 == null || value1 == Double.NaN) {
+                    curveChar = null;
+                } else {
+                    curveChar = '-';
+                }
+            } else {
+                coord = coordMapper.computeTextCoord(curveX, value0);
+
+                if (value1 == null || value1 == Double.NaN) {
+                    curveChar = '-';
+                    coord = coordMapper.computeTextCoord(curveX, value0);
+                } else {
+                    // Two values are defined
+                    double curveStep = Math.abs(projectGridYToCurve.project(0) - projectGridYToCurve.project(1));
+
+                    if (Math.abs(value0 - value1) < curveStep / 3) {
+                        curveChar = '-';
+                    } else if (value0 < value1) {
+                        curveChar = '/';
+                    } else {
+                        curveChar = '\\';
+                    }
+                }
+            }
+
+            if (curveChar != null) {
                 // The curve should not have an out of bound value based on our current algorithm
                 assert coord != null;
-                rc.drawCharacter(coord, '*');
+                rc.drawCharacter(coord, curveChar);
             }
         }
 
