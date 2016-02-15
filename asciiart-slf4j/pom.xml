@@ -12,7 +12,7 @@
 
     <description>Ascii Art Bindings allowing to use SLF4j logger wrappers.</description>  
 
-    <url>http://sourceforge.net/projects/asciiart/</url>
+    <url>https://github.com/alcibiade/asciiart</url>
     
     <scm>
         <url>http://sourceforge.net/p/asciiart/code</url>
