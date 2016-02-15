@@ -93,18 +93,18 @@ in a single column table.
 Source code:
 
 ```java
-    List<String> items = new ArrayList<String>();
-    items.add("Orange");
-    items.add("Apple");
-    items.add("Lemon");
+List<String> items = new ArrayList<String>();
+items.add("Orange");
+items.add("Apple");
+items.add("Lemon");
 
-    TableModel tableModel = new TableModelCollectionAdapter(items, "Fruit");
-    TableWidget tableWidget = new TableWidget(tableModel);
+TableModel tableModel = new TableModelCollectionAdapter(items, "Fruit");
+TableWidget tableWidget = new TableWidget(tableModel);
 
-    CharacterRaster raster = new ExtensibleCharacterRaster(' ');
-    tableWidget.render(new RasterContext(raster));
+CharacterRaster raster = new ExtensibleCharacterRaster(' ');
+tableWidget.render(new RasterContext(raster));
 
-    System.out.println(raster);
+System.out.println(raster);
 ```
 
 #### Map to table
@@ -124,18 +124,18 @@ in a single column table.
 Source code:
 
 ```java
-    Map<String, Double> items = new TreeMap<String, Double>();
-    items.put("Paris", 42.);
-    items.put("London", 2012.);
-    items.put("Amsterdam", 3.1415);
+Map<String, Double> items = new TreeMap<String, Double>();
+items.put("Paris", 42.);
+items.put("London", 2012.);
+items.put("Amsterdam", 3.1415);
 
-    TableModel tableModel = new TableModelMapAdapter(items, "City", "Value");
-    TableWidget tableWidget = new TableWidget(tableModel);
+TableModel tableModel = new TableModelMapAdapter(items, "City", "Value");
+TableWidget tableWidget = new TableWidget(tableModel);
 
-    CharacterRaster raster = new ExtensibleCharacterRaster(' ');
-    tableWidget.render(new RasterContext(raster));
+CharacterRaster raster = new ExtensibleCharacterRaster(' ');
+tableWidget.render(new RasterContext(raster));
 
-    System.out.println(raster);
+System.out.println(raster);
 ```
 
 #### Custom table
@@ -159,12 +159,12 @@ extend AbstractTableModel.
 Source code:
 
 ```java
-    TableWidget tableWidget = new TableWidget(new CustomTableModelImpl());
+TableWidget tableWidget = new TableWidget(new CustomTableModelImpl());
 
-    CharacterRaster raster = new ExtensibleCharacterRaster(' ');
-    tableWidget.render(new RasterContext(raster));
+CharacterRaster raster = new ExtensibleCharacterRaster(' ');
+tableWidget.render(new RasterContext(raster));
 
-    System.out.println(raster);
+System.out.println(raster);
 ```
 
 ```
@@ -221,12 +221,12 @@ Sample:
 Source code:
 
 ```java
-    List<String> items = new ArrayList<String>();
-    items.add("Orange");
-    items.add("Apple");
-    items.add("Lemon");
+List<String> items = new ArrayList<String>();
+items.add("Orange");
+items.add("Apple");
+items.add("Lemon");
 
-    AsciiArtLogger logger = new AsciiArtLogger(LoggerFactory.getLogger(App.class));
-    logger.info("Here is a basic log line");
-    logger.info(items, "Fruits");
+AsciiArtLogger logger = new AsciiArtLogger(LoggerFactory.getLogger(App.class));
+logger.info("Here is a basic log line");
+logger.info(items, "Fruits");
 ```
