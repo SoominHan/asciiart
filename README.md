@@ -21,6 +21,51 @@ Have a look at the code samples below to get examples on how to render tables or
 
 ## Code Samples
 
+### Chart
+
+A chart can be plotted on an ASCII raster.
+
+A function is expressed either:
+
+* by implementing the CurveModel interface (Java 6/7)
+* by providing a closure
+
+Here is an example using a Java 8 closure:
+
+```java
+ChartWidget widget = new ChartWidget(
+        new TextBoxSize(80, 12),
+        x -> Math.cos(x - 1)
+        , -1, 10);
+
+// Create a character raster that will store the ASCII outputs
+CharacterRaster raster = new ExtensibleCharacterRaster(' ');
+// Render the widget on the character raster
+widget.render(new RasterContext(raster));
+// Now we display the raster contents in the console output
+System.out.println(raster.toString());
+```
+
+Output is:
+
+```
+
+       ^                                                                        
+       |  ---------                                     ---------               
+       |--         --\                                --         --             
+      //              \                             /-             \\           
+     / |               \\                          /                 \          
+   //  |                 \                       //                   \\        
+../....+..................\\..................../.......................\......>
+/      |                    \                 //                         \\     
+       |                     \\             //                             \-   
+       |                       --         --                                 -- 
+       |                         ---- ----                                     -
+       |                             -                                          
+
+```
+
+
 ### Table
 
 The TableWidget can be used to handle data grids. Data sources should implement
