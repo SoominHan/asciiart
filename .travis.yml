@@ -1,0 +1,17 @@
+language: java
+jdk:
+- oraclejdk7
+before_install:
+
+after_success:
+- mkdir deploy
+- mv target/chess-club-${TRAVIS_TAG}.jar deploy/
+- mvn clean test jacoco:report coveralls:report
+deploy:
+  provider: releases
+  api_key:
+    secure: ib+X2YS5K9c1V5IGSNyMCCY8xGtdCYl3z6zEh1Mh9JX1xi3hQb34cvk12CzW63TQubDsaXYfl1GAmobXpI6lXZxpohejMe+1FMhXQ3wdDv8mpQ1FHZ1HN8wxra54LdzdekRMAWjBt8R9a430rPkzg1HCFtXL21eF5txTtMO28LZHOfshlcSow6KjROkchcJv5reEsc1XULQVH5Es/W+e+2Kuhorc4pbGaAt9wHp6Rts5B08bhDPWogpvwNCDihltcFNzYECg+32hzMtYoGhfElyhPurkL9rvG6xLKQZ/QBm0JNiKSWKclQt6nxCVEQuG0qtjMVeviCO/nF778fHMZyOYUnfbP3dAUjGRoXo7otSXfbaWF8BXaDONXUYJcO8MleLbqVZ3sAsyEP+oI30ZAGjJ/PFI/jPzMqD9ThOeeXOns3Vixlc+397jMg1bVwfzrliHcrouWHeLtRCYEoENaMAc9TdDFYzCNT5oWwzO1gxPbKzvYd0o0Hg8W7ywSlgsl1SO7uvPnyth+2IGgwN6pn/lCTUzyRjT6Ltux+a5w8ORCImEY4QvNwKeu14agXyFJ0yHn7e77Qh5TD8zFIXoIMRk/9vINiV9+60lQLyhftBm5jlw0LQ71w+n3Urx2QGhYnlBfBGAh3g7cUszhsUKTktvtWR9IcPm0SGUpf3tt/4=
+  file: deploy/asciiart-${TRAVIS_TAG}.jar
+  on:
+    repo: alcibiade/asciiart
+    tags: true
