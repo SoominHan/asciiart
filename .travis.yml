@@ -5,7 +5,7 @@ before_install:
 
 after_success:
 - mkdir deploy
-- mv target/chess-club-${TRAVIS_TAG}.jar deploy/
+- mv target/asciiart-${TRAVIS_TAG}.jar deploy/
 - mvn clean test jacoco:report coveralls:report
 deploy:
   provider: releases
