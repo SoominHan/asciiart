@@ -11,9 +11,9 @@ release is also available as a Maven artefact from Maven central repository in g
 
 ```xml
 <dependency>
-        <groupId>org.alcibiade</groupId>
-        <artifactId>asciiart-core</artifactId>
-        <version>1.1.0</version>
+    <groupId>org.alcibiade</groupId>
+    <artifactId>asciiart-core</artifactId>
+    <version>1.1.0</version>
 </dependency>
 ```
 
