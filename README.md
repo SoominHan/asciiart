@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/alcibiade/asciiart.svg?branch=master)](https://travis-ci.org/alcibiade/asciiart) 
+[![Coverage Status](https://coveralls.io/repos/alcibiade/asciiart/badge.svg?branch=master&service=github)](https://coveralls.io/github/alcibiade/asciiart?branch=master)
+
 ## ASCII Art For Java
 
 Instantly create ASCII reports, multi-column tables, graphs, ...
