@@ -91,6 +91,8 @@ public class ChartWidget extends TextWidget {
             rc.drawCharacter(new TextCoord(size.getX() - 1, originCoord.getY()), '>');
         }
 
+        Integer lastY = null;
+
         // Render the curve itself
         for (int gridX = 0; gridX < size.getX(); gridX++) {
             double curveX = projectGridXToCurve.project(gridX);
@@ -130,10 +132,27 @@ public class ChartWidget extends TextWidget {
                 }
             }
 
-            if (curveChar != null) {
+            if (curveChar == null) {
+                lastY = null;
+            } else {
                 // The curve should not have an out of bound value based on our current algorithm
                 assert coord != null;
+
+                if (lastY != null) {
+                    if (coord.getY() > lastY + 1) {
+                        for (int y = lastY + 1; y < coord.getY(); y++) {
+                            rc.drawCharacter(new TextCoord(coord.getX(), y), '|');
+                        }
+                    } else if (coord.getY() < lastY - 1) {
+                        for (int y = lastY - 1; y > coord.getY(); y--) {
+                            rc.drawCharacter(new TextCoord(coord.getX(), y), '|');
+                        }
+                    }
+                }
+
                 rc.drawCharacter(coord, curveChar);
+
+                lastY = coord.getY();
             }
         }
 

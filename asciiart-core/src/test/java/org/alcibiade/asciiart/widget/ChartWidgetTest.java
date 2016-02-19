@@ -48,6 +48,24 @@ public class ChartWidgetTest {
         });
     }
 
+    @Test
+    public void testChartWithWideY() {
+        renderCurve(new CurveModel() {
+
+            @Override
+            public Double getValue(double x) {
+                return Math.pow(Math.cos(x), 6);
+            }
+
+            @Override
+            public String toString() {
+                return "f(x) = cos(x)^6";
+            }
+
+        });
+    }
+
+
     private void renderCurve(CurveModel curveModel) {
         ChartWidget widget = new ChartWidget(new TextBoxSize(80, 12), curveModel, -1, 10);
         Raster raster = new ExtensibleCharacterRaster(' ');
